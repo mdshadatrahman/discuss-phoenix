@@ -7,3 +7,5 @@ defmodule DiscussWeb.PageController do
     render(conn, :home, layout: false)
   end
 end
+
+# 72 done
