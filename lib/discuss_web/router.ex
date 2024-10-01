@@ -26,10 +26,12 @@ defmodule DiscussWeb.Router do
     get "/topics/:id/edit", TopicController, :edit
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", DiscussWeb do
-  #   pipe_through :api
-  # end
+  scope "/auth", DiscussWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:discuss, :dev_routes) do
@@ -50,4 +52,4 @@ defmodule DiscussWeb.Router do
 end
 
 
-# 87 done
+# 100 done

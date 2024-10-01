@@ -7,6 +7,7 @@ defmodule Discuss.Application do
 
   @impl true
   def start(_type, _args) do
+    Dotenv.load
     children = [
       DiscussWeb.Telemetry,
       Discuss.Repo,
