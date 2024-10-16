@@ -13,11 +13,15 @@
     <div class="sr-only">
       <.link navigate={~p"/topics/#{topic}"}>Show</.link>
     </div>
-    <.link navigate={~p"/topics/#{topic}/edit"}>Edit</.link>
+    <%= if @conn.assigns.user.id == topic.user_id do %>
+      <.link navigate={~p"/topics/#{topic}/edit"}>Edit</.link>
+    <% end %>
   </:action>
   <:action :let={topic}>
-    <.link href={~p"/topics/#{topic}"} method="delete" data-confirm="Are you sure?">
-      Delete
-    </.link>
+    <%= if @conn.assigns.user.id == topic.user_id do %>
+      <.link href={~p"/topics/#{topic}"} method="delete" data-confirm="Are you sure?">
+        Delete
+      </.link>
+    <% end %>
   </:action>
 </.table>
