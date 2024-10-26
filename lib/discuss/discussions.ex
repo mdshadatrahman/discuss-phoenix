@@ -146,8 +146,9 @@ defmodule Discuss.Discussions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_comment(attrs \\ %{}) do
-    %Comment{}
+  def create_comment(topic, attrs \\ %{}) do
+    topic
+    |> Ecto.build_assoc(:comments)
     |> Comment.changeset(attrs)
     |> Repo.insert()
   end
@@ -197,5 +198,10 @@ defmodule Discuss.Discussions do
   """
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
+  end
+
+  def get_topic_comments(topic) do
+    topic
+    |> Repo.preload(:comments)
   end
 end

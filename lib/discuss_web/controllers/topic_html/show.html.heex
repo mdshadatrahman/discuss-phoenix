@@ -2,7 +2,7 @@
   Topic <%= @topic.id %>
   <:subtitle>This is a topic record from your database.</:subtitle>
   <:actions>
-    <%= if @conn.assigns.user.id == @topic.user_id do %>
+    <%= if @conn.assigns.user && @conn.assigns.user.id == @topic.user_id do %>
       <.link href={~p"/topics/#{@topic}/edit"}>
         <.button>Edit topic</.button>
       </.link>
@@ -14,4 +14,15 @@
   <:item title="Title"><%= @topic.title %></:item>
 </.list>
 
+<div>
+  <textarea id="commentTextarea" class="materialize-textarea"></textarea>
+  <.button id="addCommentButton">Add Comment</.button>
+</div>
+
 <.back navigate={~p"/"}>Back to topics</.back>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    window.createSocket(<%= @topic.id %>)
+  });
+</script>
